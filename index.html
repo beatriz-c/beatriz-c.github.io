@@ -62,7 +62,6 @@
           <span class="dot" aria-hidden="true">•</span>
           <span data-bind="venueName">The Atrium</span>
         </p>
-        <p class="hero-meta reveal" data-bind="venueAddress">Quinta do Pateo, 2565-000 Dois Portos, Portugal</p>
 
         <div class="hero-cta reveal">
           <a class="btn btn-primary" href="#rsvp">RSVP</a>
@@ -76,14 +75,8 @@
             </button>
           </div>
         </div>
-
-        <p class="hero-note reveal">Tap play for music • Mute is on by default</p>
       </div>
 
-      <div class="hero-scroll" aria-hidden="true">
-        <span class="hero-scroll-line"></span>
-        <span class="hero-scroll-text">Scroll</span>
-      </div>
     </section>
 
     <!-- ABOUT -->
@@ -91,7 +84,6 @@
       <div class="container">
         <header class="section-head reveal">
           <h2 class="section-title">Sobre nós</h2>
-          <p class="section-subtitle">Uma história de amor contada em luz suave e confiança tranquila.</p>
         </header>
 
         <div class="about-grid">
@@ -122,28 +114,10 @@
           <div class="about-side reveal">
             <div class="photo-card" role="img" aria-label="Couple photo placeholder">
               <div class="photo-card-inner">
-                <p class="photo-card-kicker">Photo</p>
-                <p class="photo-card-title">A moment, softly framed</p>
+                <!-- <p class="photo-card-kicker">Photo</p> -->
+                <p class="photo-card-kicker">O pedido em foto</p>
                 <img class="photo-card-image" src="assets/main2.png" alt="" loading="eager" decoding="async" />
               </div>
-            </div>
-
-            <div class="timeline-cards">
-              <article class="timeline-card reveal">
-                <p class="timeline-label">Capítulo I</p>
-                <p class="timeline-title">Como nos conhecemos</p>
-                <p class="timeline-text" data-bind="chapter1"></p>
-              </article>
-              <article class="timeline-card reveal">
-                <p class="timeline-label">Capítulo II</p>
-                <p class="timeline-title">O sim</p>
-                <p class="timeline-text" data-bind="chapter2"></p>
-              </article>
-              <article class="timeline-card reveal">
-                <p class="timeline-label">Capítulo III</p>
-                <p class="timeline-title">Agora</p>
-                <p class="timeline-text" data-bind="chapter3"></p>
-              </article>
             </div>
           </div>
         </div>
@@ -155,11 +129,9 @@
       <div class="container">
         <header class="section-head reveal">
           <h2 class="section-title">Programa do dia</h2>
-          <p class="section-subtitle">Um fluxo refinado—cronometrado, sem esforço e calorosamente hospedado.</p>
         </header>
 
         <ol class="timeline" aria-label="Wedding day schedule" data-bind="scheduleList"></ol>
-        <p class="note reveal" data-bind="scheduleNote"></p>
       </div>
     </section>
 
@@ -168,7 +140,6 @@
       <div class="container">
         <header class="section-head reveal">
           <h2 class="section-title">Detalhes</h2>
-          <p class="section-subtitle">Tudo o que tu precisas - claro, calmo e considerado.</p>
         </header>
 
         <div class="detail-grid">
@@ -221,7 +192,6 @@
       <div class="container">
         <header class="section-head reveal">
           <h2 class="section-title">RSVP</h2>
-          <p class="section-subtitle">Uma resposta rápida nos ajuda a te receber lindamente.</p>
         </header>
 
         <div class="rsvp-shell reveal">
@@ -229,21 +199,19 @@
             <div class="form-row">
               <label class="label" for="fullName">Nome completo <span aria-hidden="true">*</span></label>
               <input class="input" id="fullName" name="fullName" type="text" autocomplete="name" required />
-              <p class="field-hint">Como deve aparecer no plano de assentos.</p>
             </div>
 
             <div class="form-row">
               <label class="label" for="email">Email <span aria-hidden="true">*</span></label>
               <input class="input" id="email" name="email" type="email" autocomplete="email" required />
-              <p class="field-hint">Usaremos isso apenas para o planejamento do casamento.</p>
             </div>
 
             <div class="form-row">
               <fieldset class="fieldset">
-                <legend class="label">Attendance <span aria-hidden="true">*</span></legend>
+                <legend class="label">Presença <span aria-hidden="true">*</span></legend>
                 <div class="segmented" role="radiogroup" aria-label="Attendance">
-                  <label class="seg"><input type="radio" name="attendance" value="Yes" required /><span>Yes, I’ll be there</span></label>
-                  <label class="seg"><input type="radio" name="attendance" value="No" required /><span>Sadly, no</span></label>
+                  <label class="seg"><input type="radio" name="attendance" value="Yes" required /><span>Sim, estarei presente</span></label>
+                  <label class="seg"><input type="radio" name="attendance" value="No" required /><span>Infelizmente, não estarei presente</span></label>
                 </div>
               </fieldset>
             </div>
@@ -254,29 +222,21 @@
                 <input class="input" id="guests" name="guests" type="text" placeholder="e.g., 2 (or names)" />
               </div>
               <div>
-                <label class="label" for="diet">Restrições alimentares</label>
-                <input class="input" id="diet" name="diet" type="text" placeholder="Alergias / preferências" />
+                <label class="label" for="diet">Restrições alimentares / Alergias</label>
+                <input class="input" id="diet" name="diet" type="text" placeholder="Restrições /Alergias" />
               </div>
             </div>
 
             <div class="form-row">
-              <label class="label" for="notes">Notas</label>
-              <textarea class="textarea" id="notes" name="notes" rows="4" placeholder="Algo que devamos saber?"></textarea>
+              <label class="label" for="notes">Notas / Pedidos Especiais</label>
+              <textarea class="textarea" id="notes" name="notes" rows="4"></textarea>
             </div>
 
             <div class="form-actions">
               <button class="btn btn-primary" type="submit">Enviar RSVP</button>
-              <p class="privacy">Suas informações são usadas apenas para o planejamento do casamento.</p>
             </div>
           </form>
 
-          <aside class="rsvp-aside">
-            <div class="aside-card">
-              <p class="aside-title">Prefere email?</p>
-              <p class="aside-text">Enviar abre um rascunho de email com os detalhes do seu RSVP.</p>
-              <p class="aside-text subtle">Nenhum dado é armazenado neste site por padrão.</p>
-            </div>
-          </aside>
         </div>
       </div>
     </section>
@@ -289,26 +249,7 @@
           <p class="section-subtitle">A sua presença é o presente. Se desejar adicionar algo mais:</p>
         </header>
 
-        <div class="gifts-grid">
-          <article class="gift-card reveal">
-            <h3 class="gift-title">Lista de Casamento</h3>
-            <p class="gift-text" data-bind="registryText"></p>
-            <a class="btn btn-ghost" href="#" target="_blank" rel="noopener" data-bind-href="registryLink">Abrir lista</a>
-          </article>
-
-          <article class="gift-card reveal">
-            <h3 class="gift-title">Transferência bancária</h3>
-            <p class="gift-text">Se preferir, uma contribuição para a nossa lua de mel será muito apreciada.</p>
-            <div class="iban">
-              <div>
-                <p class="iban-label">IBAN</p>
-                <p class="iban-value mono" data-bind="iban"></p>
-              </div>
-              <button class="btn btn-metal btn-small" type="button" data-action="copy-iban">Copiar</button>
-            </div>
-            <p class="fineprint">Substitua ou remova esta seção na configuração.</p>
-          </article>
-        </div>
+        lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a semper dui. Donec efficitur, nisl eget consectetur sagittis, nisl nunc consectetur nisi, eu consectetur nisl nunc eu nisl. Donec efficitur, nisl eget consectetur sagittis, nisl nunc consectetur nisi, eu consectetur nisl nunc eu nisl.
       </div>
     </section>
 
@@ -317,7 +258,6 @@
       <div class="container">
         <header class="section-head reveal">
           <h2 class="section-title">Fotografias</h2>
-          <p class="section-subtitle">Uma galeria selecionada—e os seus momentos espontâneos.</p>
         </header>
 
         <div class="photos-grid">
@@ -329,7 +269,7 @@
 
           <article class="photo-tool reveal">
             <h3 class="tool-title">Envios dos convidados</h3>
-            <p class="tool-text">Envie as suas fotos para a nossa pasta partilhada.</p>
+            <p class="tool-text">Adiciona as tuas fotos ao nosso álbum partilhado</p>
 
             <div class="qr-shell">
               <div class="qr" data-qr></div>
@@ -342,7 +282,6 @@
               </div>
             </div>
 
-            <p class="fineprint">O código QR é gerado no seu navegador.</p>
           </article>
         </div>
       </div>
@@ -351,7 +290,7 @@
     <footer class="footer">
       <div class="container">
         <div class="divider"></div>
-        <p class="footer-text">Feito com glamour discreto e um brilho calmo.</p>
+        <p class="footer-text">Feito pela Beatriz e pelo David com ❤️ 2027</p>
       </div>
     </footer>
   </main>
@@ -369,7 +308,7 @@
     <div class="player-controls">
       <label class="sr-only" for="volume">Volume</label>
       <input id="volume" class="player-volume" type="range" min="0" max="1" step="0.01" value="0" data-action="volume" />
-      <span class="player-note" aria-hidden="true">Toque para reproduzir</span>
+      <span class="player-note" aria-hidden="true"></span>
     </div>
   </div>
 
