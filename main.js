@@ -43,7 +43,6 @@ const CONFIG = {
     { time: "19:00", title: "Dinner", note: "Toasts and speeches" },
     { time: "21:00", title: "Party", note: "Dancing, dessert, and late-night bites" }
   ],
-  scheduleNote: "Short walk to the garden for cocktails.",
 
   about: {
     lede:
