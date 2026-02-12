@@ -110,7 +110,6 @@
           <div class="about-side reveal">
             <div class="photo-card" role="img" aria-label="Couple photo placeholder">
               <div class="photo-card-inner">
-                <!-- <p class="photo-card-kicker">Photo</p> -->
                 <p class="photo-card-kicker">O pedido em foto</p>
                 <img class="photo-card-image" src="assets/main2.png" alt="" loading="eager" decoding="async" />
               </div>
@@ -220,6 +219,20 @@
               <div>
                 <label class="label" for="diet">Restrições alimentares / Alergias</label>
                 <input class="input" id="diet" name="diet" type="text" placeholder="Restrições /Alergias" />
+              </div>
+            </div>
+
+            <div class="form-row two-col">
+              <div>
+                <label class="label" for="guests">Precisas de transporte? <span aria-hidden="true">*</span></label>
+                <div class="segmented" role="radiogroup" aria-label="Attendance">
+                  <label class="seg"><input type="radio" name="attendance" value="Yes" required /><span>Sim</span></label>
+                  <label class="seg"><input type="radio" name="attendance" value="No" required /><span>Não</span></label>
+                </div>
+              </div>
+              <div>
+                <label class="label" for="transportation">Se sim, para quantas pessoas?</label>
+                <input class="input" id="transportation" name="transportation" type="text" placeholder="" />
               </div>
             </div>
 
