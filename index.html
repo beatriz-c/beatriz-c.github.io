@@ -72,7 +72,6 @@
           </div>
         </div>
       </div>
-
     </section>
 
     <!-- ABOUT -->
@@ -82,7 +81,7 @@
           <h2 class="section-title">Sobre nós</h2>
         </header>
 
-        <div class="about-grid">
+        <div class="about-grid about-grid-centered">
           <div class="about-story reveal">
             <p class="lede" data-bind="aboutLede"></p>
             <p data-bind="aboutBody"></p>
@@ -108,10 +107,11 @@
           </div>
 
           <div class="about-side reveal">
-            <div class="photo-card" role="img" aria-label="Couple photo placeholder">
+            <div class="photo-card" role="img" aria-label="Couple photos">
               <div class="photo-card-inner">
                 <p class="photo-card-kicker">O pedido em foto</p>
                 <img class="photo-card-image" src="assets/main2.png" alt="" loading="eager" decoding="async" />
+                <img class="photo-card-image photo-card-image-second" src="assets/main2.png" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>
@@ -189,10 +189,10 @@
           <h2 class="section-title">RSVP</h2>
         </header>
 
-        <div class="rsvp-shell reveal">
+        <div class="rsvp-shell rsvp-centered reveal">
           <form class="form" data-rsvp-form novalidate>
             <div class="form-row">
-              <label class="label" for="fullName">Nome completo <span aria-hidden="true">*</span></label>
+              <label class="label" for="fullName">Nome<span aria-hidden="true">*</span></label>
               <input class="input" id="fullName" name="fullName" type="text" autocomplete="name" required />
             </div>
 
@@ -224,15 +224,17 @@
 
             <div class="form-row two-col">
               <div>
-                <label class="label" for="guests">Precisas de transporte? <span aria-hidden="true">*</span></label>
-                <div class="segmented" role="radiogroup" aria-label="Attendance">
-                  <label class="seg"><input type="radio" name="attendance" value="Yes" required /><span>Sim</span></label>
-                  <label class="seg"><input type="radio" name="attendance" value="No" required /><span>Não</span></label>
-                </div>
+                <fieldset class="fieldset">
+                  <legend class="label">Precisas de transporte? <span aria-hidden="true">*</span></legend>
+                  <div class="segmented" role="radiogroup" aria-label="Transportation needed">
+                    <label class="seg"><input type="radio" name="transportNeeded" value="Yes" required /><span>Sim</span></label>
+                    <label class="seg"><input type="radio" name="transportNeeded" value="No" required /><span>Não</span></label>
+                  </div>
+                </fieldset>
               </div>
               <div>
-                <label class="label" for="transportation">Se sim, para quantas pessoas?</label>
-                <input class="input" id="transportation" name="transportation" type="text" placeholder="" />
+                <label class="label" for="transportPeople">Se sim, para quantas pessoas?</label>
+                <input class="input" id="transportPeople" name="transportPeople" type="text" inputmode="numeric" placeholder="Ex.: 2" />
               </div>
             </div>
 
@@ -245,7 +247,6 @@
               <button class="btn btn-primary" type="submit">Enviar RSVP</button>
             </div>
           </form>
-
         </div>
       </div>
     </section>
@@ -290,7 +291,6 @@
                 </div>
               </div>
             </div>
-
           </article>
         </div>
       </div>

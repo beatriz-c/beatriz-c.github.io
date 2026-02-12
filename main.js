@@ -11,15 +11,15 @@ const CONFIG = {
   // Calendar event (easy to edit)
   calendar: {
     title: "Casamento da Beatriz & David",
-    start: "2027-06-26T16:00:00",
-    end:   "2027-06-26T23:00:00",
+    start: "2027-06-26T11:00:00",
+    end:   "2027-06-27T02:00:00",
     timeZone: "Europe/Lisbon",
     location: "Quinta do Páteo — Quinta do Pateo, 2565-000 Dois Portos, Portugal",
     description: [
       "Dress code: Elegant attire.",
       "Children are welcome.",
       "RSVP on the website.",
-      "Website: https://example.com"
+      "Website: https://beatriz-c.github.io/"
     ].join("\\n"),
     google: {
       // details/location override (optional)
@@ -37,7 +37,7 @@ const CONFIG = {
   ],
 
   schedule: [
-    { time: "15:30", title: "Guests arrive", note: "Welcome drink in the lounge" },
+    { time: "11:00", title: "Guests arrive", note: "Welcome drink in the lounge" },
     { time: "16:00", title: "Ceremony", note: "Please be seated 10 minutes early" },
     { time: "17:00", title: "Cocktail hour", note: "Short walk to the garden" },
     { time: "19:00", title: "Dinner", note: "Toasts and speeches" },
@@ -380,7 +380,7 @@ function setupCalendar() {
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    showToast("Calendar file", "Downloaded an .ics file (edit event details in CONFIG).");
+    showToast("Evento descarregado", "Abre-o para adicionar ao teu calendário.");
   });
 }
 
@@ -401,9 +401,10 @@ function setupRSVP() {
 
   function validate(fields) {
     const errors = [];
-    if (!fields.fullName?.trim()) errors.push("Full name is required.");
-    if (!fields.email?.trim() || !emailRe.test(fields.email.trim())) errors.push("Please enter a valid email.");
-    if (!fields.attendance) errors.push("Please select attendance (Yes/No).");
+    if (!fields.fullName?.trim()) errors.push("O nome é obrigatório.");
+    if (!fields.email?.trim() || !emailRe.test(fields.email.trim())) errors.push("Por favor insere um email válido.");
+    if (!fields.attendance) errors.push("Por favor, seleciona a presença (Sim/Não).");
+    if (!fields.transportNeeded) errors.push("Por favor, seleciona se precisas de transporte (Sim/Não).");
     return errors;
   }
 
@@ -414,8 +415,13 @@ function setupRSVP() {
 
     if (errors.length) {
       showToast("Check the form", errors[0]);
-      const first = !fields.fullName ? $("#fullName") : (!emailRe.test(fields.email || "") ? $("#email") : null);
-      first?.focus();
+
+      // focus first error
+      if (!fields.fullName?.trim()) { $("#fullName")?.focus(); return; }
+      if (!fields.email?.trim() || !emailRe.test(fields.email.trim())) { $("#email")?.focus(); return; }
+      if (!fields.attendance) { form.querySelector("input[name='attendance']")?.focus(); return; }
+      if (!fields.transportNeeded) { form.querySelector("input[name='transportNeeded']")?.focus(); return; }
+
       return;
     }
 
@@ -425,6 +431,8 @@ function setupRSVP() {
       `Attendance: ${fields.attendance}`,
       fields.guests ? `Guests: ${fields.guests}` : "",
       fields.diet ? `Dietary restrictions: ${fields.diet}` : "",
+      `Transportation needed: ${fields.transportNeeded}`,
+      fields.transportPeople ? `Transport people: ${fields.transportPeople}` : "",
       fields.notes ? `Notes: ${fields.notes}` : "",
       "",
       `Event: ${CONFIG.calendar.title}`,

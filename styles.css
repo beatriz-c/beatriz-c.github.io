@@ -126,15 +126,17 @@ button,input,textarea{font:inherit; color:inherit;}
   margin: 0 auto;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center; /* centered header */
   padding:14px 0;
   gap:14px;
+  position:relative;
 }
 
 .nav{
   position:relative;
   display:flex;
   align-items:center;
+  justify-content:center; /* center nav */
 }
 .nav-list{
   display:flex;
@@ -142,6 +144,8 @@ button,input,textarea{font:inherit; color:inherit;}
   list-style:none;
   padding:0; margin:0;
   align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
 }
 .nav-link{
   font-size:13px;
@@ -183,24 +187,10 @@ button,input,textarea{font:inherit; color:inherit;}
   background:rgba(255,255,255,.04);
   color:rgba(255,255,255,.9);
 }
-.nav-toggle-lines{
-  display:block;
-  width:18px; height:12px;
-  margin:0 auto;
-  position:relative;
-}
-.nav-toggle-lines::before,
-.nav-toggle-lines::after{
-  content:"";
-  position:absolute;
-  left:0; right:0;
-  height:2px;
-  border-radius:2px;
-  background:rgba(255,255,255,.85);
-}
-.nav-toggle-lines::before{top:0;}
-.nav-toggle-lines::after{bottom:0;}
+
+/* keep toggle left-ish while nav is centered (mobile opens panel) */
 @media (max-width: 900px){
+  .nav-shell{justify-content:space-between;}
   .nav-toggle{display:inline-grid; place-items:center;}
   .nav{
     position:absolute;
@@ -217,6 +207,7 @@ button,input,textarea{font:inherit; color:inherit;}
     opacity:0;
     pointer-events:none;
     transition: opacity 220ms var(--ease), transform 220ms var(--ease);
+    justify-content:stretch;
   }
   .nav.is-open{
     opacity:1;
@@ -235,6 +226,23 @@ button,input,textarea{font:inherit; color:inherit;}
   }
   .nav-indicator{display:none;}
 }
+.nav-toggle-lines{
+  display:block;
+  width:18px; height:12px;
+  margin:0 auto;
+  position:relative;
+}
+.nav-toggle-lines::before,
+.nav-toggle-lines::after{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  height:2px;
+  border-radius:2px;
+  background:rgba(255,255,255,.85);
+}
+.nav-toggle-lines::before{top:0;}
+.nav-toggle-lines::after{bottom:0;}
 
 /* Hero */
 .hero{
@@ -285,7 +293,6 @@ button,input,textarea{font:inherit; color:inherit;}
 }
 .hero-title{
   font-family: 'ELEGANT', sans-serif;
-  /* font-family:var(--serif); */
   font-weight:600;
   letter-spacing:.10em;
   text-transform:uppercase;
@@ -319,36 +326,6 @@ button,input,textarea{font:inherit; color:inherit;}
   gap:10px;
   flex-wrap:wrap;
   justify-content:center;
-}
-.hero-note{
-  margin: 18px 0 0;
-  font-size: 12px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color: rgba(255,255,255,.62);
-}
-.hero-scroll{
-  position:absolute;
-  bottom: 18px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  opacity:.72;
-  z-index:1;
-}
-.hero-scroll-line{
-  width:1px;
-  height: 26px;
-  background: linear-gradient(180deg, rgba(127,212,205,.0), rgba(127,212,205,.7));
-  border-radius:999px;
-}
-.hero-scroll-text{
-  font-size:10px;
-  letter-spacing:.24em;
-  text-transform:uppercase;
 }
 
 /* Buttons */
@@ -404,7 +381,11 @@ button,input,textarea{font:inherit; color:inherit;}
   gap: clamp(18px, 4vw, 36px);
   align-items:start;
 }
+.about-grid-centered{
+  align-items:center; /* vertically align text + photo column */
+}
 @media (max-width: 860px){ .about-grid{grid-template-columns:1fr;} }
+
 .about-story .lede{
   font-family:var(--serif);
   font-size: 20px;
@@ -435,42 +416,23 @@ button,input,textarea{font:inherit; color:inherit;}
   color: rgba(15,18,22,.72);
 }
 .mini-text{ margin:0; color: rgba(15,18,22,.70); font-size: 14px; }
+
 .about-side{ display:flex; flex-direction:column; gap: 14px; }
 
-.diet{
-  min-height: 220px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  padding: 18px;
-}
-
-.transportation{
-  min-height: 220px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  padding: 18px;
-}
-
+/* Photo card */
 .photo-card-kicker{ margin:0; letter-spacing:.20em; text-transform:uppercase; font-size: 11px; color: rgba(15,18,22,.62); }
-.photo-card-title{ margin:6px 0 2px; font-family:var(--serif); font-size: 22px; color: rgba(15,18,22,.84); }
-.photo-card-note{ margin:0; font-size: 13px; color: rgba(15,18,22,.62); }
-
-.photo-card-image {
-  width: 100%;          /* Ensures it fills the container width */
-  height: auto;         /* Maintains aspect ratio */
-  border-radius: 16px;  /* Adds the soft, rounded corners */
-  margin-top: 1rem;     /* Adds a little breathing room between text and photo */
-  object-fit: cover;    /* Prevents the image from stretching weirdly */
-  display: block;       /* Removes default inline spacing */
+.photo-card-image{
+  width: 100%;
+  height: 320px;         /* fixed height to keep both photos aligned */
+  border-radius: 16px;
+  margin-top: 1rem;
+  object-fit: cover;
+  display:block;
 }
-
-.timeline-cards{ display:grid; gap: 12px; }
-.timeline-card{ border-radius: var(--radius); padding: 14px 16px; background: rgba(255,255,255,.55); border: 1px solid rgba(15,18,22,.10); }
-.timeline-label{ margin:0; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color: rgba(15,18,22,.56); }
-.timeline-title{ margin:6px 0 2px; font-family:var(--serif); font-size: 18px; color: rgba(15,18,22,.82); }
-.timeline-text{ margin:0; color: rgba(15,18,22,.66); font-size: 13px; }
+.photo-card-image-second{
+  margin-top: 14px;
+  height: 320px;
+}
 
 /* Schedule Timeline */
 .timeline{ list-style:none; padding:0; margin: 0; display:grid; gap: 12px; }
@@ -531,6 +493,16 @@ button,input,textarea{font:inherit; color:inherit;}
 /* RSVP */
 .rsvp-shell{ display:grid; grid-template-columns: 1.1fr .9fr; gap: 16px; align-items:start; }
 @media (max-width: 920px){ .rsvp-shell{grid-template-columns:1fr;} }
+
+/* centered RSVP wrapper */
+.rsvp-centered{
+  display:flex;
+  justify-content:center;
+}
+.rsvp-centered .form{
+  width: min(720px, 100%);
+}
+
 .form{
   border-radius: var(--radius);
   border: 1px solid rgba(255,255,255,.10);
@@ -560,7 +532,6 @@ button,input,textarea{font:inherit; color:inherit;}
 }
 .input::placeholder,.textarea::placeholder{color: rgba(255,255,255,.45);}
 .input:focus,.textarea:focus{ outline:none; border-color: rgba(127,212,205,.45); box-shadow: var(--glow); }
-.field-hint{ margin:8px 2px 0; font-size: 12px; color: rgba(255,255,255,.58); }
 .fieldset{ border:0; padding:0; margin:0; }
 .segmented{ display:flex; gap: 10px; flex-wrap:wrap; }
 .seg{
@@ -577,44 +548,6 @@ button,input,textarea{font:inherit; color:inherit;}
 .seg:hover{ border-color: rgba(127,212,205,.35); box-shadow: var(--glow); transform: translateY(-1px); }
 .seg input{accent-color: var(--accent);}
 .form-actions{ display:flex; flex-direction:column; gap: 10px; margin-top: 6px; }
-.privacy{ margin:0; color: rgba(255,255,255,.60); font-size: 12px; }
-.rsvp-aside .aside-card{
-  border-radius: var(--radius);
-  padding: 18px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  box-shadow: 0 18px 70px rgba(0,0,0,.20);
-}
-.aside-title{ margin:0 0 8px; font-family:var(--serif); font-size: 22px; }
-.aside-text{ margin:0 0 10px; color: rgba(255,255,255,.72); }
-.aside-text.subtle{opacity:.70; margin:0;}
-
-/* Gifts */
-.gifts-grid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
-@media (max-width: 860px){ .gifts-grid{grid-template-columns:1fr;} }
-.gift-card{
-  border-radius: var(--radius);
-  padding: 18px;
-  background: rgba(255,255,255,.60);
-  border: 1px solid rgba(15,18,22,.12);
-  box-shadow: 0 16px 60px rgba(0,0,0,.10);
-}
-.gift-title{ margin: 0 0 8px; font-family:var(--serif); font-size: 22px; color: rgba(15,18,22,.88); }
-.gift-text{margin:0 0 14px; color: rgba(15,18,22,.70);}
-.iban{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap: 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(15,18,22,.12);
-  background: rgba(15,18,22,.04);
-  padding: 12px;
-}
-.iban-label{ margin:0; font-size: 11px; letter-spacing:.20em; text-transform:uppercase; color: rgba(15,18,22,.60); }
-.iban-value{ margin:4px 0 0; color: rgba(15,18,22,.84); }
-.fineprint{ margin: 12px 0 0; font-size: 12px; color: rgba(15,18,22,.56); }
-.section-graphite .fineprint{color: rgba(255,255,255,.55);}
 
 /* Photos */
 .photos-grid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
