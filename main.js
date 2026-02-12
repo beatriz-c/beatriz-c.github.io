@@ -414,7 +414,7 @@ function setupRSVP() {
     const errors = validate(fields);
 
     if (errors.length) {
-      showToast("Check the form", errors[0]);
+      showToast("Verifica o RSVP", errors[0]);
 
       // focus first error
       if (!fields.fullName?.trim()) { $("#fullName")?.focus(); return; }
@@ -426,19 +426,19 @@ function setupRSVP() {
     }
 
     const payload = [
-      `Name: ${fields.fullName}`,
+      `Nome: ${fields.fullName}`,
       `Email: ${fields.email}`,
-      `Attendance: ${fields.attendance}`,
-      fields.guests ? `Guests: ${fields.guests}` : "",
-      fields.diet ? `Dietary restrictions: ${fields.diet}` : "",
-      `Transportation needed: ${fields.transportNeeded}`,
-      fields.transportPeople ? `Transport people: ${fields.transportPeople}` : "",
-      fields.notes ? `Notes: ${fields.notes}` : "",
+      `Presença: ${fields.attendance}`,
+      fields.guests ? `Convidados: ${fields.guests}` : "",
+      fields.diet ? `Restrições alimentares: ${fields.diet}` : "",
+      `Necessita de transporte: ${fields.transportNeeded}`,
+      fields.transportPeople ? `Pessoas para transporte: ${fields.transportPeople}` : "",
+      fields.notes ? `Notas: ${fields.notes}` : "",
       "",
-      `Event: ${CONFIG.calendar.title}`,
-      `Date: ${CONFIG.weddingDateText}`,
-      `Venue: ${CONFIG.venueName}`,
-      `Address: ${CONFIG.venueAddress}`
+      `Evento: ${CONFIG.calendar.title}`,
+      `Data: ${CONFIG.weddingDateText}`,
+      `Local: ${CONFIG.venueName}`,
+      `Endereço: ${CONFIG.venueAddress}`
     ].filter(Boolean).join("\n");
 
     if (CONFIG.rsvp.method === "formProvider" && CONFIG.rsvp.formActionUrl) {
@@ -449,9 +449,9 @@ function setupRSVP() {
         body: JSON.stringify({ ...fields, meta: { event: CONFIG.calendar.title } })
       }).then(() => {
         form.reset();
-        showToast("RSVP sent", "Thank you. We received your response.");
+        showToast("RSVP enviado", "Obrigado. Recebemos a tua resposta.");
       }).catch(() => {
-        showToast("Could not submit", "Please try again or use the email method.");
+        showToast("Não foi possível enviar", "Por favor tenta novamente ou usa o método do email.");
       });
       return;
     }
@@ -461,7 +461,7 @@ function setupRSVP() {
     const body = encodeURIComponent(payload);
     window.location.href = `mailto:${encodeURIComponent(to)}?subject=${subject}&body=${body}`;
     form.reset();
-    showToast("Email draft", "An email draft has been prepared with your RSVP details.");
+    showToast("Rascunho de email", "Um rascunho de email foi preparado com os detalhes do teu RSVP.");
   });
 }
 
@@ -472,12 +472,12 @@ function setupRSVP() {
 function setupCopyButtons() {
   $("[data-action='copy-iban']")?.addEventListener("click", async () => {
     const ok = await copyToClipboard(CONFIG.gifts.iban);
-    showToast(ok ? "Copied" : "Copy failed", ok ? "IBAN copied to clipboard." : "Please copy manually.");
+    showToast(ok ? "Copiado" : "Falha ao copiar", ok ? "IBAN copiado para a área de transferência." : "Por favor copia manualmente.");
   });
 
   $("[data-action='copy-upload-link']")?.addEventListener("click", async () => {
     const ok = await copyToClipboard(CONFIG.photos.driveUploadLink);
-    showToast(ok ? "Copied" : "Copy failed", ok ? "Upload link copied to clipboard." : "Please copy manually.");
+    showToast(ok ? "Copiado" : "Falha ao copiar", ok ? "Link de upload copiado para a área de transferência." : "Por favor copia manualmente.");
   });
 }
 
@@ -496,7 +496,7 @@ function setupQR() {
     p.style.textAlign = "center";
     p.style.fontSize = "12px";
     p.style.color = "#111";
-    p.textContent = "QR unavailable. Use the upload link instead.";
+    p.textContent = "QR indisponível. Usa o link de upload em alternativa.";
     el.appendChild(p);
   };
 
@@ -535,7 +535,7 @@ function setupPlayer() {
   const setPlaying = (state) => {
     isPlaying = state;
     player.classList.toggle("is-playing", state);
-    toggle.setAttribute("aria-label", state ? "Pause music" : "Play music");
+    toggle.setAttribute("aria-label", state ? "Pausar música" : "Tocar música");
   };
 
   const fadeTo = (target, ms = 600) => {
@@ -578,7 +578,7 @@ function setupPlayer() {
             vol.value = String(DEFAULT_VOL);
           }
         } catch {
-          showToast?.("Audio blocked", "Tap the play button or check browser settings.");
+          showToast?.("Áudio bloqueado", "Toca no botão de reprodução ou verifica as definições do navegador.");
         }
       };
       window.addEventListener("pointerdown", resumeOnGesture, { once: true, passive: true });
@@ -602,7 +602,7 @@ function setupPlayer() {
         setPlaying(false);
       }
     } catch {
-      showToast?.("Audio blocked", "Tap again or check your browser settings.");
+      showToast?.("Áudio bloqueado", "Toca novamente ou verifica as definições do navegador.");
     }
   });
 
