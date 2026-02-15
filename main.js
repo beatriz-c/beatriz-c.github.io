@@ -64,8 +64,8 @@ const CONFIG = {
 
   rsvp: {
     method: "mailto", // "mailto" | "formProvider"
-    mailtoTo: "yourname@example.com",
-    mailtoSubject: "Wedding RSVP",
+    mailtoTo: "carvdomingues@gmail.com",
+    mailtoSubject: "Casamento - RSVP",
     formActionUrl: ""
   },
 
@@ -76,7 +76,7 @@ const CONFIG = {
   },
 
   photos: {
-    driveUploadLink: "https://example.com/drive-upload-folder",
+    driveUploadLink: "https://photos.google.com/album/AF1QipN2zs7IokIMc43WdqfjgkTBzf3BuwDcKqbTnjaz",
     photographerLink: "https://example.com/photographer-gallery"
   }
 };
@@ -479,42 +479,6 @@ function setupCopyButtons() {
     const ok = await copyToClipboard(CONFIG.photos.driveUploadLink);
     showToast(ok ? "Copiado" : "Falha ao copiar", ok ? "Link de upload copiado para a área de transferência." : "Por favor copia manualmente.");
   });
-}
-
-function setupQR() {
-  const el = $("[data-qr]");
-  if (!el) return;
-
-  const maxWait = 2500;
-  const start = performance.now();
-
-  const renderFallback = () => {
-    el.innerHTML = "";
-    const p = document.createElement("p");
-    p.style.margin = "0";
-    p.style.padding = "12px";
-    p.style.textAlign = "center";
-    p.style.fontSize = "12px";
-    p.style.color = "#111";
-    p.textContent = "QR indisponível. Usa o link de upload em alternativa.";
-    el.appendChild(p);
-  };
-
-  const tick = () => {
-    if (window.QRCode) {
-      el.innerHTML = "";
-      new window.QRCode(el, {
-        text: CONFIG.photos.driveUploadLink,
-        width: 120,
-        height: 120,
-        correctLevel: window.QRCode.CorrectLevel.M
-      });
-      return;
-    }
-    if (performance.now() - start > maxWait) return renderFallback();
-    requestAnimationFrame(tick);
-  };
-  tick();
 }
 
 function setupPlayer() {
