@@ -26,7 +26,7 @@ const CONFIG = {
     }
   },
 
-  dressCode: "Elegant attire. Think modern formal with soft tones and subtle metallic accents.",
+  dressCode: "Elegant attire. Think modern formal with soft tones and subtle metallic accents. You may also bring your swimsuit as there will be a pool.",
   menuText: "Seasonal dinner with vegetarian options. Please share allergies in your RSVP.",
   maps: {
     embedUrl: "https://www.google.com/maps?q=Quinta+do+P%C3%A1teo&output=embed",
