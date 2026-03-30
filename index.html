@@ -84,7 +84,7 @@
         <div class="about-grid about-grid-centered">
           <div class="about-story reveal">
             <p class="lede" data-bind="aboutLede"></p>
-            <p data-bind="aboutBody"></p>
+            <p class="lede" data-bind="aboutBody"></p>
 
             <div class="mini-cards">
               <article class="mini-card reveal">
@@ -140,18 +140,23 @@
         <div class="detail-grid">
           <article class="detail-card reveal">
             <div class="detail-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3l4 7-4 3-4-3 4-7zm-6 18l3-9 3 2 3-2 3 9H6z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" width="22" height="22">
+                <path d="M9 2h6l-2 4 2 3-3 13-3-13 2-3-2-4z" fill="currentColor"/>
+              </svg>
             </div>
-            <h3 class="detail-title">Dress code</h3>
+            <h3 class="detail-title">Dress Code</h3>
             <p class="detail-text" data-bind="dressCode"></p>
           </article>
 
           <article class="detail-card reveal">
             <div class="detail-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 3h10v2H7V3zm-2 4h14l-1 14H6L5 7zm4 3v8h2v-8H9zm4 0v8h2v-8h-2z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" width="22" height="22">
+                <path d="M9 4a2 2 0 1 1 0 4a2 2 0 0 1 0-4Zm6 1a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 15 5Zm-7 4h2a2.5 2.5 0 0 1 2.5 2.5V13H11v7H9v-4H8v4H6v-7H5.5v-1.5A2.5 2.5 0 0 1 8 9Zm6 .5h1.5A2.5 2.5 0 0 1 18 12v1h-1v6h-1.75v-3.5h-.5V19H13v-6h-1v-1a2.5 2.5 0 0 1 2-2.5Z" fill="currentColor"/>
+              </svg>
             </div>
-            <h3 class="detail-title">Menu</h3>
-            <p class="detail-text" data-bind="menuText"></p>
+            <h3 class="detail-title">Crianças</h3>
+            <p class="detail-text">Os mais pequenos são bem-vindos.</p>
+            <p class="detail-text">Aceitamos alguma destruição, desde que venha acompanhada de muita fofura 😄</p>
           </article>
 
           <article class="detail-card reveal">
@@ -172,11 +177,21 @@
           <article class="detail-card reveal">
             <div class="detail-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="22" height="22">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-4.41 3.59-8 8-8s8 3.59 8 8-4.41 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="currentColor"/>
-            </svg>
+                <path d="M7 2v8a2 2 0 002 2v10h2V12a2 2 0 002-2V2h-2v4H9V2H7zm9 0c-1.66 0-3 1.79-3 4v7h2v9h2V2h-1z" fill="currentColor"/>
+              </svg>
             </div>
-            <h3 class="detail-title">Crianças são bem-vindas</h3>
-            <p class="detail-text">Crianças são bem-vindas.</p>
+
+            <h3 class="detail-title">Menu</h3>
+
+            <div class="menu-nav">
+              <button class="btn btn-metal btn-small" type="button" data-food-prev aria-label="Previous food slide">←</button>
+              <button class="btn btn-metal btn-small" type="button" data-food-next aria-label="Next food slide">→</button>
+            </div>
+
+            <div class="menu-slide" data-food-slider>
+              <p class="detail-text"><strong data-food-title></strong></p>
+              <p class="detail-text" data-food-text></p>
+            </div>
           </article>
         </div>
       </div>
@@ -188,6 +203,9 @@
         <header class="section-head reveal">
           <h2 class="section-title">RSVP</h2>
         </header>
+        <p class="form-note">Nota: Ao clicarem em "Enviar" este formulário irá despoletar um email, que devem enviar.</p>
+      </div>
+    </section>
 
         <div class="rsvp-shell rsvp-centered reveal">
           <form class="form" data-rsvp-form novalidate>
@@ -197,8 +215,11 @@
             </div>
 
             <div class="form-row">
-              <label class="label" for="email">Email <span aria-hidden="true">*</span></label>
+              <label class="label" for="email">Email<span aria-hidden="true">*</span></label>
               <input class="input" id="email" name="email" type="email" autocomplete="email" required />
+              <p class="form-note">
+                Este será o email usado para acesso ao álbum partilhado. Se quiserem mais de uma pessoa do grupo com acesso, pedimos que preencham novo formulário para essa pessoa. Nesse caso, não repitam o número de crianças.
+              </p>
             </div>
 
             <div class="form-row">
@@ -214,27 +235,29 @@
             <div class="form-row two-col">
               <div>
                 <label class="label" for="guests">Convidados</label>
-                <input class="input" id="guests" name="guests" type="text" placeholder="ex.: 2 (ou nomes)" />
+                <input class="input" id="guests" name="guests" type="text" placeholder="Nomes e quantidade" />
               </div>
+
               <div>
-                <label class="label" for="diet">Restrições alimentares / Alergias</label>
-                <input class="input" id="diet" name="diet" type="text" placeholder="Restrições /Alergias" />
+                <label class="label" for="children">Crianças</label>
+                <input class="input" id="children" name="children" type="text" placeholder="Nomes e quantidade" />
               </div>
             </div>
 
-            <div class="form-row two-col">
+            <div class="form-row">
+              <label class="label" for="diet">Restrições alimentares / Alergias</label>
+              <input class="input" id="diet" name="diet" type="text" />
+            </div>
+
+            <div class="form-row">
               <div>
                 <fieldset class="fieldset">
-                  <legend class="label">Precisas de transporte? <span aria-hidden="true">*</span></legend>
+                  <legend class="label">Precisas de Transporte / Ajuda com Boleias? <span aria-hidden="true">*</span></legend>
                   <div class="segmented" role="radiogroup" aria-label="Transportation needed">
                     <label class="seg"><input type="radio" name="transportNeeded" value="Sim" required /><span>Sim</span></label>
                     <label class="seg"><input type="radio" name="transportNeeded" value="Não" required /><span>Não</span></label>
                   </div>
                 </fieldset>
-              </div>
-              <div>
-                <label class="label" for="transportPeople">Se sim, para quantas pessoas?</label>
-                <input class="input" id="transportPeople" name="transportPeople" type="text" inputmode="numeric" placeholder="Ex.: 2" />
               </div>
             </div>
 
@@ -244,24 +267,30 @@
             </div>
 
             <div class="form-actions">
-              <button class="btn btn-primary" type="submit">Enviar RSVP</button>
+              <button class="btn btn-primary" type="submit">Enviar</button>
             </div>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- GIFTS -->
-    <section id="gifts" class="section section-ivory">
-      <div class="container">
-        <header class="section-head reveal">
-          <h2 class="section-title">Prendas</h2>
-          <p class="section-subtitle">A sua presença é o presente. Se desejar adicionar algo mais:</p>
-        </header>
-
-        lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a semper dui. Donec efficitur, nisl eget consectetur sagittis, nisl nunc consectetur nisi, eu consectetur nisl nunc eu nisl. Donec efficitur, nisl eget consectetur sagittis, nisl nunc consectetur nisi, eu consectetur nisl nunc eu nisl.
-      </div>
-    </section>
+  <!-- GIFTS -->
+  <section id="gifts" class="section section-ivory">
+    <div class="container">
+      <header class="section-head reveal">
+        <h2 class="section-title">Prendas</h2>
+      </header>
+      <p>
+        A vossa presença é o mais importante para nós. Sabemos bem que a vida não está propriamente em modo folgado, por isso não se sintam com obrigação de nos oferecer algo.
+      </p>
+      <p>
+        Caso queiram contribuir para iniciarmos a nossa vida em conjunto, aproveitamos para dizer que não queremos prendas físicas. Ajuda monetária 💸 é o que nos dá mais jeito.
+      </p>
+      <p>
+        Se preferirem não oferecer dinheiro em mão, por favor entrem em contacto connosco para que possamos fornecer-vos os nossos detalhes. Relembramos que os nossos contactos encontram-se nos convites entregues.
+      </p>
+    </div>
+  </section>
 
     <!-- PHOTOS -->
     <section id="photos" class="section section-graphite">
@@ -272,17 +301,17 @@
 
         <div class="photos-grid">
           <article class="photo-tool reveal">
-            <h3 class="tool-title">Fotógrafo</h3>
-            <p class="tool-text">Link para a galeria profissional (disponível após o casamento).</p>
+            <h3 class="tool-title">Albúm do Fotógrafo</h3>
+            <p class="tool-text">Link para a galeria profissional (disponível após o casamento)</p>
             <a class="btn btn-ghost" href="#" target="_blank" rel="noopener" data-bind-href="photographerLink">Ver galeria</a>
           </article>
 
           <article class="photo-tool reveal">
-            <h3 class="tool-title">Envios dos convidados</h3>
-            <p class="tool-text">Adiciona as tuas fotos ao nosso álbum partilhado</p>
+            <h3 class="tool-title">Albúm com Contribuições dos Convidados</h3>
+            <p class="tool-text">Adiciona os teus momentos ao nosso álbum partilhado</p>
 
             <div class="qr-shell">
-              <img class="qr" src="assets/qrcode_photos.google.com.png" alt="" loading="lazy" decoding="async" />
+              <img class="qr" src="assets/qr-code.png" alt="" loading="lazy" decoding="async" />
               <div class="qr-meta">
                 <div class="qr-actions">
                   <button class="btn btn-metal btn-small" type="button" data-action="copy-upload-link">Copiar link</button>
@@ -298,7 +327,7 @@
     <footer class="footer">
       <div class="container">
         <div class="divider"></div>
-        <p class="footer-text">Feito pela Beatriz e pelo David com ❤️ 2027</p>
+        <p class="footer-text">Feito pela Beatriz e David com ❤️ 2027</p>
       </div>
     </footer>
   </main>
