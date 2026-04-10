@@ -66,22 +66,22 @@ const CONFIG = {
 
     schedule: [
         {
-            time: "12:00",
-            title: "Welcome Drinks",
-            note: "Uma boa festa começa assim",
-        },
-        {
             time: "12:30",
             title: "Cerimónia",
             note: "Por favor, sentem-se cerca de 10 minutos antes e não se coloquem à frente dos fotógrafos",
         },
-        {
+       {
             time: "13:30",
+            title: "Welcome Drinks",
+            note: "Uma boa festa começa assim",
+        },
+        {
+            time: "14:30",
             title: "Almoço",
             note: "Brindes e discursos",
         },
         {
-            time: "16:00",
+            time: "16:30",
             title: "Fotos e Atividades",
             note: "Zona dos jogos e piscina",
         },
@@ -96,7 +96,7 @@ const CONFIG = {
             note: "Esperamos que tenham espaço para a sobremesa...",
         },
         {
-            time: "21:30",
+            time: "21:00",
             title: "Primeira Dança",
             note: 'Ensaiámos o suficiente para "parecermos" profissionais',
         },
