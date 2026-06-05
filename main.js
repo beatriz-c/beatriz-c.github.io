@@ -141,6 +141,11 @@ const CONFIG = {
             "https://photos.google.com/u/2/share/AF1QipMjr0NRf8MSZmEbY-PFI3rDEVU6BYIJMCHExuc_1BpMVaYrcaX6C2EKyM_bEl8sLw",
         photographerLink: "https://example.com/photographer-gallery",
     },
+
+    music: {
+        spotifyPlaylistLink:
+            "https://open.spotify.com/playlist/4pUjfqPREnNDiW3z1sLVuy?si=6cc80320343245a3&pt=e09be3297eea53a894f6c3c24855e022",
+    },
 };
 
 /* ==========================================================
@@ -355,6 +360,15 @@ function bindContent() {
         if (key === "photographerLink")
             el.href = CONFIG.photos.photographerLink;
         if (key === "driveUploadLink") el.href = CONFIG.photos.driveUploadLink;
+        if (key === "spotifyPlaylistLink") {
+            if (CONFIG.music.spotifyPlaylistLink) {
+                el.href = CONFIG.music.spotifyPlaylistLink;
+            } else {
+                el.removeAttribute("href");
+                el.setAttribute("aria-disabled", "true");
+                el.tabIndex = -1;
+            }
+        }
     });
 
     $$("[data-bind-src]").forEach((el) => {
@@ -399,6 +413,13 @@ function setupNav() {
     const toggle = $("[data-nav-toggle]");
     const links = $$(".nav-link");
     const indicator = $("[data-nav-indicator]");
+    const sectionLinks = links
+        .map((link) => ({
+            link,
+            section: document.querySelector(link.getAttribute("href")),
+        }))
+        .filter(({ section }) => section);
+    let activeFrame = 0;
 
     function setIndicatorTo(link) {
         if (!indicator || !link) return;
@@ -408,6 +429,32 @@ function setupNav() {
         const w = r.width * 0.8;
         indicator.style.setProperty("--x", `${x}px`);
         indicator.style.setProperty("--w", `${w / 20}`);
+    }
+
+    function setActiveLink(link) {
+        if (!link) return;
+        links.forEach((a) => a.classList.toggle("is-active", a === link));
+        setIndicatorTo(link);
+    }
+
+    function updateActiveLink() {
+        const headerHeight = $("[data-header]")?.offsetHeight || 0;
+        const currentY = window.scrollY + headerHeight + 24;
+        let active = sectionLinks[0]?.link;
+
+        sectionLinks.forEach(({ link, section }) => {
+            if (section.offsetTop <= currentY) active = link;
+        });
+
+        setActiveLink(active);
+    }
+
+    function requestActiveUpdate() {
+        if (activeFrame) return;
+        activeFrame = window.requestAnimationFrame(() => {
+            activeFrame = 0;
+            updateActiveLink();
+        });
     }
 
     function closeMobileNav() {
@@ -421,33 +468,16 @@ function setupNav() {
         toggle.setAttribute("aria-expanded", String(open));
     });
 
-    links.forEach((a) => a.addEventListener("click", closeMobileNav));
+    links.forEach((a) =>
+        a.addEventListener("click", () => {
+            closeMobileNav();
+            setActiveLink(a);
+        }),
+    );
 
-    const sections = links
-        .map((a) => document.querySelector(a.getAttribute("href")))
-        .filter(Boolean);
-    const obs = new IntersectionObserver(
-        (entries) => {
-            const visible = entries
-                .filter((e) => e.isIntersecting)
-                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-            if (!visible) return;
-            const id = "#" + visible.target.id;
-            const active = links.find((a) => a.getAttribute("href") === id);
-            if (!active) return;
-            links.forEach((a) => a.classList.toggle("is-active", a === active));
-            setIndicatorTo(active);
-        },
-        { threshold: [0.35, 0.55, 0.75] },
-    );
-    sections.forEach((s) => obs.observe(s));
-
-    window.addEventListener("load", () =>
-        setIndicatorTo($(".nav-link.is-active")),
-    );
-    window.addEventListener("resize", () =>
-        setIndicatorTo($(".nav-link.is-active")),
-    );
+    window.addEventListener("load", updateActiveLink);
+    window.addEventListener("resize", requestActiveUpdate);
+    window.addEventListener("scroll", requestActiveUpdate, { passive: true });
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeMobileNav();
@@ -457,6 +487,8 @@ function setupNav() {
         if (!nav.contains(e.target) && !toggle.contains(e.target))
             closeMobileNav();
     });
+
+    updateActiveLink();
 }
 
 /* ==========================================================
@@ -653,6 +685,27 @@ function setupCopyButtons() {
                 ok ? "Copiado" : "Falha ao copiar",
                 ok
                     ? "Link de upload copiado para a área de transferência."
+                    : "Por favor copia manualmente.",
+            );
+        },
+    );
+
+    $("[data-action='copy-playlist-link']")?.addEventListener(
+        "click",
+        async () => {
+            if (!CONFIG.music.spotifyPlaylistLink) {
+                showToast(
+                    "Playlist",
+                    "O link da playlist ainda não está configurado.",
+                );
+                return;
+            }
+
+            const ok = await copyToClipboard(CONFIG.music.spotifyPlaylistLink);
+            showToast(
+                ok ? "Copiado" : "Falha ao copiar",
+                ok
+                    ? "Link da playlist copiado para a área de transferência."
                     : "Por favor copia manualmente.",
             );
         },
