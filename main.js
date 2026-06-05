@@ -718,14 +718,25 @@ function setupPlayer() {
     const toggle = document.querySelector("[data-action='toggle-audio']");
     const vol = document.querySelector("[data-action='volume']");
     if (!player || !audio || !toggle || !vol) return;
+    if (player.dataset.playerReady === "true") return;
+    player.dataset.playerReady = "true";
 
     const DEFAULT_VOL = 0.35;
-
-    // initial UI state
-    audio.volume = 0;
-    audio.muted = true;
-    vol.value = "0";
     let isPlaying = false;
+
+    const normalizeVolume = (value) => {
+        const next = Number(value);
+        if (!Number.isFinite(next)) return DEFAULT_VOL;
+        return Math.min(1, Math.max(0, next));
+    };
+
+    const setVolume = (value) => {
+        const next = normalizeVolume(value);
+        audio.volume = next;
+        vol.value = String(next);
+        audio.muted = next === 0;
+        return next;
+    };
 
     const setPlaying = (state) => {
         isPlaying = state;
@@ -736,93 +747,88 @@ function setupPlayer() {
         );
     };
 
-    const fadeTo = (target, ms = 600) => {
-        const start = audio.volume;
-        const startTime = performance.now();
+    const startPlayback = async () => {
+        if (audio.volume === 0) setVolume(DEFAULT_VOL);
+        audio.muted = false;
 
-        const tick = (t) => {
-            const p = Math.min(1, (t - startTime) / ms);
-            audio.volume = start + (target - start) * p;
-            vol.value = String(audio.volume);
-            if (p < 1) requestAnimationFrame(tick);
-        };
-
-        requestAnimationFrame(tick);
-    };
-
-    // Try autoplay on page load (muted first, then fade up)
-    const tryAutoplay = async () => {
         try {
-            audio.muted = true;
-            audio.volume = 0;
-            vol.value = "0";
-
             await audio.play();
             setPlaying(true);
-
-            // unmute + fade up (if allowed)
-            audio.muted = false;
-            fadeTo(DEFAULT_VOL, 700);
+            return true;
         } catch {
-            // Autoplay blocked: start on first user gesture instead
             setPlaying(false);
-            const resumeOnGesture = async () => {
-                try {
-                    audio.muted = false;
-                    await audio.play();
-                    setPlaying(true);
-                    if (Number(vol.value) === 0) {
-                        audio.volume = DEFAULT_VOL;
-                        vol.value = String(DEFAULT_VOL);
-                    }
-                } catch {
-                    showToast?.(
-                        "Áudio bloqueado",
-                        "Toca no botão de reprodução ou verifica as definições do navegador.",
-                    );
-                }
-            };
-            window.addEventListener("pointerdown", resumeOnGesture, {
-                once: true,
-                passive: true,
-            });
+            return false;
         }
     };
 
+    const removeGestureFallback = () => {
+        window.removeEventListener("pointerdown", resumeOnGesture);
+        window.removeEventListener("keydown", resumeOnGesture);
+    };
+
+    const resumeOnGesture = async (event) => {
+        if (event.target?.closest?.("[data-player]")) {
+            removeGestureFallback();
+            return;
+        }
+
+        removeGestureFallback();
+        const started = await startPlayback();
+        if (!started) {
+            showToast(
+                "Áudio bloqueado",
+                "Toca no botão de reprodução ou verifica as definições do navegador.",
+            );
+        }
+    };
+
+    const addGestureFallback = () => {
+        window.addEventListener("pointerdown", resumeOnGesture, {
+            passive: true,
+        });
+        window.addEventListener("keydown", resumeOnGesture);
+    };
+
+    const tryAutoplay = async () => {
+        const started = await startPlayback();
+        if (!started) addGestureFallback();
+    };
+
+    setVolume(vol.value || DEFAULT_VOL);
     tryAutoplay();
 
     toggle.addEventListener("click", async () => {
-        try {
-            if (!isPlaying) {
-                audio.muted = false;
-                await audio.play();
-                setPlaying(true);
-                if (Number(vol.value) === 0) {
-                    vol.value = String(DEFAULT_VOL);
-                    audio.volume = DEFAULT_VOL;
-                }
-            } else {
-                audio.pause();
-                setPlaying(false);
+        removeGestureFallback();
+
+        if (!isPlaying || audio.paused) {
+            const started = await startPlayback();
+            if (!started) {
+                showToast(
+                    "Áudio bloqueado",
+                    "Toca novamente ou verifica as definições do navegador.",
+                );
             }
-        } catch {
-            showToast?.(
-                "Áudio bloqueado",
-                "Toca novamente ou verifica as definições do navegador.",
-            );
+        } else {
+            audio.pause();
+            setPlaying(false);
         }
     });
 
     vol.addEventListener("input", () => {
-        audio.muted = false;
-        audio.volume = Number(vol.value);
+        setVolume(vol.value);
     });
 
+    audio.addEventListener("play", () => setPlaying(true));
+    audio.addEventListener("pause", () => setPlaying(false));
     audio.addEventListener("ended", () => setPlaying(false));
+    audio.addEventListener("error", () => {
+        setPlaying(false);
+        showToast(
+            "Erro no áudio",
+            "Não foi possível carregar o ficheiro de música.",
+        );
+    });
 }
-
-// Ensure it runs on page load
-document.addEventListener("DOMContentLoaded", setupPlayer);
 
 function setupToast() {
     const toast = $("[data-toast]");

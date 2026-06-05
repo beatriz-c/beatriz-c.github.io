@@ -34,7 +34,7 @@
           <li><a class="nav-link" href="#details">Detalhes</a></li>
           <li><a class="nav-link" href="#rsvp">RSVP</a></li>
           <li><a class="nav-link" href="#gifts">Prendas</a></li>
-          <li><a class="nav-link" href="#photos">Foto e Música</a></li>
+          <li><a class="nav-link" href="#photos">Fotos e Música</a></li>
         </ul>
 
         <span class="nav-indicator" aria-hidden="true" data-nav-indicator></span>
@@ -290,11 +290,11 @@
     </div>
   </section>
 
-    <!-- PHOTO AND MUSIC -->
+    <!-- PHOTOS AND MUSIC -->
     <section id="photos" class="section section-graphite">
       <div class="container">
         <header class="section-head reveal">
-          <h2 class="section-title">Foto e Música</h2>
+          <h2 class="section-title">Fotos e Música</h2>
         </header>
 
         <div class="photos-grid">
@@ -321,7 +321,7 @@
 
           <article class="photo-tool reveal">
             <h3 class="tool-title">Playlist da Festa</h3>
-            <p class="tool-text">Adiciona as músicas que queres ouvir durante a festa.</p>
+            <p class="tool-text">Adiciona as músicas que queres ouvir durante a festa</p>
 
             <div class="qr-actions">
               <button class="btn btn-metal btn-small" type="button" data-action="copy-playlist-link">Copiar link</button>
@@ -342,7 +342,7 @@
 
   <!-- FLOATING MUSIC PLAYER -->
   <div class="player" role="region" aria-label="Reprodutor de música de fundo" data-player>
-    <audio data-audio preload="none">
+    <audio data-audio preload="auto" loop playsinline>
       <source src="assets/music.mp3" type="audio/mpeg" />
     </audio>
 
@@ -352,7 +352,7 @@
 
     <div class="player-controls">
       <label class="sr-only" for="volume">Volume</label>
-      <input id="volume" class="player-volume" type="range" min="0" max="1" step="0.01" value="0" data-action="volume" />
+      <input id="volume" class="player-volume" type="range" min="0" max="1" step="0.01" value="0.35" data-action="volume" />
       <span class="player-note" aria-hidden="true"></span>
     </div>
   </div>
